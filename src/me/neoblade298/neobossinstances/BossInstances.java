@@ -144,14 +144,14 @@ public class BossInstances extends JavaPlugin implements Listener {
 		conf = YamlConfiguration.loadConfiguration(file);
 
 		// Load values from config
-		sendCommand = getConfig().getString("Send_Command");
-		returnCommand = getConfig().getString("Return_Command");
-		cmdDelay = getConfig().getInt("Command_Delay");
-		mainSpawn = parseLocation(getConfig().getString("Main_Spawn"));
-		instanceSpawn = parseLocation(getConfig().getString("Instance_Spawn"));
+		sendCommand = conf.getString("Send_Command");
+		returnCommand = conf.getString("Return_Command");
+		cmdDelay = conf.getInt("Command_Delay");
+		mainSpawn = parseLocation(conf.getString("Main_Spawn"));
+		instanceSpawn = parseLocation(conf.getString("Instance_Spawn"));
 
-		ConfigurationSection bosses = getConfig().getConfigurationSection("Bosses");
-		instanceNames = (ArrayList<String>) getConfig().getStringList("Instances");
+		ConfigurationSection bosses = conf.getConfigurationSection("Bosses");
+		instanceNames = (ArrayList<String>) conf.getStringList("Instances");
 
 		// Populate boss and raid information (stats too)
 		for (String boss : bosses.getKeys(false)) {
