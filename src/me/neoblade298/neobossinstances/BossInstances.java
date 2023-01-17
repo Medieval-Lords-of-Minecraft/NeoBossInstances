@@ -402,6 +402,10 @@ public class BossInstances extends JavaPlugin implements Listener {
 						for (Player target : activeFights.get(boss)) {
 							target.sendMessage("§4[§c§lMLMC§4] §7The boss has been spawned!");
 						}
+						
+						ArrayList<Player> fighters = new ArrayList<Player>(activeFights.get(boss));
+						String name = b.getName();
+						Bukkit.getPluginManager().callEvent(new BossStartEvent(fighters, name));
 					}
 					else if (b.getBossType().equals(BossType.RAID)) {
 						Bukkit.getServer().getLogger()
