@@ -218,7 +218,6 @@ public class BossInstances extends JavaPlugin implements Listener {
 				int deleted = stmt.executeUpdate("delete from neobossinstances_fights;");
 				Bukkit.getServer().getLogger()
 						.info("[NeoBossInstances] Cleared " + deleted + " fights from NeoBossInstances");
-				con.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -269,7 +268,6 @@ public class BossInstances extends JavaPlugin implements Listener {
 
 				Boss b = bossInfo.get(boss);
 				p.teleport(b.getCoords());
-				con.close();
 
 				// Set up databases
 				Bukkit.getServer().getLogger()
@@ -610,8 +608,6 @@ public class BossInstances extends JavaPlugin implements Listener {
 			try {
 				Statement stmt = NeoCore.getDefaultStatement();
 				stmt.executeUpdate("delete from neobossinstances_fights WHERE uuid = '" + uuid + "';");
-
-				con.close();
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}

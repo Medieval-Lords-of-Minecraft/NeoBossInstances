@@ -47,8 +47,7 @@ public class Commands implements CommandExecutor {
 				p.sendMessage("§4[§c§lBosses§4] §7Starting boss in 3 seconds...");
 				try {
 					// Connect
-					Connection con = DriverManager.getConnection(BossInstances.connection, BossInstances.sqlUser, BossInstances.sqlPass);
-					Statement stmt = con.createStatement();
+					Statement stmt = NeoCore.getDefaultStatement();
 
 					if (main.isDebug) {
 						Bukkit.getLogger().log(Level.INFO,
@@ -57,7 +56,6 @@ public class Commands implements CommandExecutor {
 					}
 					stmt.executeUpdate("REPLACE INTO neobossinstances_fights VALUES ('" + uuid + "','" + boss + "','"
 							+ instance + "','" + main.settings.getValue(uuid, boss) + "','" + NeoCore.getInstanceKey() + "');");
-					con.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -152,9 +150,7 @@ public class Commands implements CommandExecutor {
 					target.sendMessage("§4[§c§lBosses§4] §7Starting boss in " + instance + " instance in 3 seconds...");
 					try {
 						// Connect
-						Connection con = DriverManager.getConnection(BossInstances.connection, BossInstances.sqlUser,
-								BossInstances.sqlPass);
-						Statement stmt = con.createStatement();
+						Statement stmt = NeoCore.getDefaultStatement();
 
 						if (main.isDebug) {
 							Bukkit.getLogger().log(Level.INFO,
@@ -164,7 +160,6 @@ public class Commands implements CommandExecutor {
 						// Add boss level here
 						stmt.executeUpdate("REPLACE INTO neobossinstances_fights VALUES ('" + uuid + "','" + boss
 								+ "','" + instance + "'," + level + ",'" + NeoCore.getInstanceKey() + "');");
-						con.close();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -282,13 +277,11 @@ public class Commands implements CommandExecutor {
 			// /boss resetinstances
 			else if (args.length == 1 && args[0].equalsIgnoreCase("resetinstances") && !main.isInstance) {
 				try {
-					Connection con = DriverManager.getConnection(BossInstances.connection, BossInstances.sqlUser, BossInstances.sqlPass);
-					Statement stmt = con.createStatement();
+					Statement stmt = NeoCore.getDefaultStatement();
 
 					// First clear all the cooldowns on the SQL currently
 					int deleted = stmt.executeUpdate("delete from neobossinstances_fights;");
 					sender.sendMessage("§4[§c§lBosses§4] §7Deleted §e" + deleted + " §7instances!");
-					con.close();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -482,8 +475,7 @@ public class Commands implements CommandExecutor {
 		else if (args.length == 1 && args[0].equalsIgnoreCase("instances")) {
 			if (!main.isInstance) {
 				try {
-					Connection con = DriverManager.getConnection(BossInstances.connection, BossInstances.sqlUser, BossInstances.sqlPass);
-					Statement stmt = con.createStatement();
+					Statement stmt = NeoCore.getDefaultStatement();
 					ResultSet rs;
 
 					// Find available instance
@@ -524,8 +516,7 @@ public class Commands implements CommandExecutor {
 				String name = WordUtils.capitalize(args[1]);
 				if (main.cooldowns.keySet().contains(name)) {
 					try {
-						Connection con = DriverManager.getConnection(BossInstances.connection, BossInstances.sqlUser, BossInstances.sqlPass);
-						Statement stmt = con.createStatement();
+						Statement stmt = NeoCore.getDefaultStatement();
 						ResultSet rs;
 
 						// Find available instance
