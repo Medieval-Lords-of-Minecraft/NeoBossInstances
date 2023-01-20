@@ -9,6 +9,6 @@
 	<classpathentry kind="lib" path="src/SkillAPI.jar"/>
 	<classpathentry kind="lib" path="src/spigot-api-1.16.4-R0.1-20201118.232026-23-shaded.jar"/>
 	<classpathentry kind="lib" path="src/MythicMobs-5.0.3-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Alex/Documents/MLMC/Coding Stuff/workspace/NeoBossInstances/src/NeoCore.jar"/>
+	<classpathentry kind="lib" path="src/NeoCore-0.0.1-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
