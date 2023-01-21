@@ -29,4 +29,7 @@ public class BossStartEvent extends Event {
 		return handlers;
 	}
 
+	public static HandlerList getHandlerList(){
+		return handlers;
+	}
 }
