@@ -50,9 +50,9 @@ import io.lumine.mythic.bukkit.utils.numbers.RandomInt;
 import io.lumine.mythic.core.mobs.ActiveMob;
 import io.lumine.mythic.core.spawning.spawners.MythicSpawner;
 import me.neoblade298.neobossinstances.stats.PlayerStat;
-import me.neoblade298.neocore.NeoCore;
-import me.neoblade298.neocore.instancing.InstanceType;
-import me.neoblade298.neocore.player.PlayerFields;
+import me.neoblade298.neocore.bukkit.InstanceType;
+import me.neoblade298.neocore.bukkit.NeoCore;
+import me.neoblade298.neocore.bukkit.player.PlayerFields;
 
 public class BossInstances extends JavaPlugin implements Listener {
 

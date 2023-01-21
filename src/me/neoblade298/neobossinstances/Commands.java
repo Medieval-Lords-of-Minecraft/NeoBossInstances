@@ -22,8 +22,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import com.sucy.skill.SkillAPI;
 
 import me.neoblade298.neobossinstances.stats.PlayerStat;
-import me.neoblade298.neocore.NeoCore;
-import me.neoblade298.neocore.player.PlayerDataManager;
+import me.neoblade298.neocore.bukkit.NeoCore;
+import me.neoblade298.neocore.bukkit.player.PlayerDataManager;
 
 public class Commands implements CommandExecutor {
 	private BossInstances main = null;
