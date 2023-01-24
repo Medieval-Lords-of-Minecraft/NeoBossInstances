@@ -1,6 +1,7 @@
 package me.neoblade298.neobossinstances;
 
 import java.io.File;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -105,8 +106,8 @@ public class BossInstances extends JavaPlugin implements Listener {
 
 		// If not an instance, set up player cooldowns
 		if (!isInstance) {
-			try {
-				Statement stmt = NeoCore.getDefaultStatement();
+			try (Connection con = NeoCore.getConnection("BossInstances");
+					Statement stmt = con.createStatement();){
 				ResultSet rs;
 
 				rs = stmt.executeQuery("SELECT * FROM neobossinstances_cds");
@@ -195,8 +196,8 @@ public class BossInstances extends JavaPlugin implements Listener {
 		// If not instance, save cooldowns from ConcurrentHashMap to SQL
 		// Only save cooldowns that still matter (still on cooldown)
 		if (!isInstance) {
-			try {
-				Statement stmt = NeoCore.getDefaultStatement();
+			try (Connection con = NeoCore.getConnection("BossInstances");
+					Statement stmt = con.createStatement();) {
 
 				// First clear all the cooldowns on the SQL currently
 				stmt.executeUpdate("delete from neobossinstances_cds;");
@@ -251,8 +252,8 @@ public class BossInstances extends JavaPlugin implements Listener {
 			}
 
 			// Connect
-			try {
-				Statement stmt = NeoCore.getDefaultStatement();
+			try (Connection con = NeoCore.getConnection("BossInstances");
+					Statement stmt = con.createStatement();) {
 				ResultSet rs;
 
 				// Check where the player should be, teleport them there
@@ -297,6 +298,7 @@ public class BossInstances extends JavaPlugin implements Listener {
 					}
 					Collections.sort(healthList);
 				}
+				rs.close();
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			} finally {
@@ -516,8 +518,8 @@ public class BossInstances extends JavaPlugin implements Listener {
 	}
 
 	public String findInstance(String boss) {
-		try {
-			Statement stmt = NeoCore.getDefaultStatement();
+		try (Connection con = NeoCore.getConnection("BossInstances");
+				Statement stmt = con.createStatement();) {
 			ResultSet rs;
 			ArrayList<String> instanceNamesCopy = new ArrayList<String>(instanceNames);
 			Collections.shuffle(instanceNamesCopy);
@@ -525,6 +527,7 @@ public class BossInstances extends JavaPlugin implements Listener {
 				rs = stmt.executeQuery("SELECT * FROM neobossinstances_fights WHERE boss = '" + boss
 						+ "' AND instance = '" + instance + "';");
 				if (!rs.next()) {
+					rs.close();
 					return instance;
 				}
 			}
@@ -608,8 +611,8 @@ public class BossInstances extends JavaPlugin implements Listener {
 				sendAllBack.runTaskLater(main, 20L);
 			}
 			// Delete player from all fights in sql
-			try {
-				Statement stmt = NeoCore.getDefaultStatement();
+			try (Connection con = NeoCore.getConnection("BossInstances");
+					Statement stmt = con.createStatement();) {
 				stmt.executeUpdate("delete from neobossinstances_fights WHERE uuid = '" + uuid + "';");
 			} catch (Exception ex) {
 				ex.printStackTrace();

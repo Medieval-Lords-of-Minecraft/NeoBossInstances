@@ -1,5 +1,6 @@
 package me.neoblade298.neobossinstances;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -43,9 +44,8 @@ public class Commands implements CommandExecutor {
 				String boss = WordUtils.capitalize(args[2]);
 				String instance = WordUtils.capitalize(args[3]);
 				p.sendMessage("§4[§c§lBosses§4] §7Starting boss in 3 seconds...");
-				try {
-					// Connect
-					Statement stmt = NeoCore.getDefaultStatement();
+				try (Connection con = NeoCore.getConnection("BossInstances");
+						Statement stmt = con.createStatement();) {
 
 					if (main.isDebug) {
 						Bukkit.getLogger().log(Level.INFO,
@@ -146,9 +146,8 @@ public class Commands implements CommandExecutor {
 					SkillAPI.saveSingle(target);
 					UUID uuid = target.getUniqueId();
 					target.sendMessage("§4[§c§lBosses§4] §7Starting boss in " + instance + " instance in 3 seconds...");
-					try {
-						// Connect
-						Statement stmt = NeoCore.getDefaultStatement();
+					try (Connection con = NeoCore.getConnection("BossInstances");
+							Statement stmt = con.createStatement();) {
 
 						if (main.isDebug) {
 							Bukkit.getLogger().log(Level.INFO,
@@ -274,8 +273,8 @@ public class Commands implements CommandExecutor {
 			}
 			// /boss resetinstances
 			else if (args.length == 1 && args[0].equalsIgnoreCase("resetinstances") && !main.isInstance) {
-				try {
-					Statement stmt = NeoCore.getDefaultStatement();
+				try (Connection con = NeoCore.getConnection("BossInstances");
+						Statement stmt = con.createStatement();) {
 
 					// First clear all the cooldowns on the SQL currently
 					int deleted = stmt.executeUpdate("delete from neobossinstances_fights;");
@@ -472,8 +471,8 @@ public class Commands implements CommandExecutor {
 		// /boss instances
 		else if (args.length == 1 && args[0].equalsIgnoreCase("instances")) {
 			if (!main.isInstance) {
-				try {
-					Statement stmt = NeoCore.getDefaultStatement();
+				try (Connection con = NeoCore.getConnection("BossInstances");
+						Statement stmt = con.createStatement();) {
 					ResultSet rs;
 
 					// Find available instance
@@ -513,8 +512,8 @@ public class Commands implements CommandExecutor {
 				Player p = (Player) sender;
 				String name = WordUtils.capitalize(args[1]);
 				if (main.cooldowns.keySet().contains(name)) {
-					try {
-						Statement stmt = NeoCore.getDefaultStatement();
+					try (Connection con = NeoCore.getConnection("BossInstances");
+							Statement stmt = con.createStatement();) {
 						ResultSet rs;
 
 						// Find available instance
