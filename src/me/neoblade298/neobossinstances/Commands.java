@@ -23,8 +23,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 import com.sucy.skill.SkillAPI;
 
 import me.neoblade298.neobossinstances.stats.PlayerStat;
+import me.neoblade298.neocore.bukkit.InstanceType;
 import me.neoblade298.neocore.bukkit.NeoCore;
 import me.neoblade298.neocore.bukkit.player.PlayerDataManager;
+import me.neoblade298.neocore.bukkit.util.Util;
 
 public class Commands implements CommandExecutor {
 	private BossInstances main = null;
@@ -457,6 +459,10 @@ public class Commands implements CommandExecutor {
 			return true;
 		}
 		else if ((args.length == 1 || args.length == 2) && args[0].equalsIgnoreCase("return")) {
+			if (NeoCore.getInstanceType() != InstanceType.SESSIONS) {
+				Util.msg(sender, "&cYou can only use that command in a boss instance!");
+				return true;
+			}
 			if (args.length == 1 && sender instanceof Player) {
 				Player p = (Player) sender;
 				main.returnToMain(p);
