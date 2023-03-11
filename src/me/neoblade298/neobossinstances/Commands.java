@@ -167,7 +167,7 @@ public class Commands implements CommandExecutor {
 					// Only give cooldown if they've beaten the boss before or it's a raid
 					int acct = SkillAPI.getPlayerAccountData(target).getActiveId();
 					if (!BossInstances.getBoss(boss).getBossType().equals(BossType.BOSS) ||
-							PlayerDataManager.getPlayerTags("questaccount_" + acct).exists("Killed" + boss, target.getUniqueId())) {
+							PlayerDataManager.getPlayerTags("questaccount" + acct).exists("Killed" + boss, target.getUniqueId())) {
 						if (level >= 0) {
 							main.cooldowns.get(boss).put(uuid, System.currentTimeMillis());
 						}
