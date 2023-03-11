@@ -641,7 +641,7 @@ public class BossInstances extends JavaPlugin implements Listener {
 	public String getBossName(String boss, Player p) {
 		Boss b = bossInfo.get(boss);
 		int acct = SkillAPI.getPlayerAccountData(p).getActiveId();
-		if (NeoCore.getPlayerTags("questaccount_" + acct).exists(b.getTag(), p.getUniqueId())) {
+		if (NeoCore.getPlayerTags("questaccount" + acct).exists(b.getTag(), p.getUniqueId())) {
 			return b.getPlaceholder();
 		}
 		return "§4???";
