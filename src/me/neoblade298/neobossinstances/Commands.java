@@ -25,6 +25,7 @@ import com.sucy.skill.SkillAPI;
 import me.neoblade298.neobossinstances.stats.PlayerStat;
 import me.neoblade298.neocore.bukkit.InstanceType;
 import me.neoblade298.neocore.bukkit.NeoCore;
+import me.neoblade298.neocore.bukkit.io.PlayerIOManager;
 import me.neoblade298.neocore.bukkit.player.PlayerDataManager;
 import me.neoblade298.neocore.bukkit.util.Util;
 
@@ -616,6 +617,7 @@ public class Commands implements CommandExecutor {
 	
 	public static void returnPlayer(Player p) {
 		SkillAPI.saveSingle(p);
+		PlayerIOManager.save(p);
 		BukkitRunnable sendBack = new BukkitRunnable() {
 			public void run() {
 				if (p != null) {
